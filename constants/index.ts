@@ -1,23 +1,25 @@
+import { Home, CreditCard, BadgePoundSterling, ScrollText } from "lucide-react";
+
 export const sidebarLinks = [
   {
-    imgURL: "/icons/home.svg",
+    imgURL: Home,
     route: "/",
     label: "Home",
   },
   {
-    imgURL: "/icons/dollar-circle.svg",
+    imgURL: CreditCard,
     route: "/my-banks",
-    label: "My Banks",
+    label: "Accounts",
   },
   {
-    imgURL: "/icons/transaction.svg",
+    imgURL: ScrollText,
     route: "/transaction-history",
-    label: "Transaction History",
+    label: "Transactions",
   },
   {
-    imgURL: "/icons/money-send.svg",
+    imgURL: BadgePoundSterling,
     route: "/payment-transfer",
-    label: "Transfer Funds",
+    label: "Transfer",
   },
 ];
 
