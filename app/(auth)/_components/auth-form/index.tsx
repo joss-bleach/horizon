@@ -6,6 +6,7 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { Loader2 } from "lucide-react";
+import { useRouter } from "next/navigation";
 
 interface AuthFormProps {
   type: string;
@@ -13,6 +14,9 @@ interface AuthFormProps {
 
 // Validation
 import { authFormSchema } from "@/lib/validation";
+
+// Actions
+import { signIn, signUp } from "@/lib/actions/user.actions";
 
 // Components
 import { Form } from "@/components/ui/form";
@@ -23,6 +27,7 @@ export const AuthForm = ({ type }: AuthFormProps) => {
   const [user, setUser] = useState(null);
 
   const formSchema = authFormSchema(type);
+  const router = useRouter();
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -38,8 +43,23 @@ export const AuthForm = ({ type }: AuthFormProps) => {
     },
   });
 
-  const handleOnSubmit = (values: z.infer<typeof formSchema>) => {
-    console.log(values);
+  const handleOnSubmit = async (values: z.infer<typeof formSchema>) => {
+    try {
+      if (type === "sign-up") {
+        const newUser = await signUp(values);
+        setUser(newUser);
+      } else if (type === "sign-in") {
+        const response = await signIn({
+          email: values.email,
+          password: values.password,
+        });
+        if (response) {
+          router.push("/");
+        }
+      }
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   return (

@@ -12,15 +12,13 @@ declare type SignUpParams = {
   lastName: string;
   address1: string;
   city: string;
-  state: string;
   postalCode: string;
   dateOfBirth: string;
-  ssn: string;
   email: string;
   password: string;
 };
 
-declare type LoginUser = {
+declare type SignInParams = {
   email: string;
   password: string;
 };
